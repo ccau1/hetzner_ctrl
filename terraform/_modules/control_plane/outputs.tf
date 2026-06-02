@@ -11,7 +11,7 @@ output "server_id" {
 output "domains" {
   description = "Wildcard domain pattern"
   value = var.cloudflare_zone_id != "" ? [
-    "*-${var.environment} → configured"
+    "*.${var.environment} → configured"
   ] : []
 }
 

@@ -48,8 +48,8 @@ Each environment is fully isolated: its own server, firewall, SSH key, Docker ne
 ```
 ┌─────────────────────────────────────────┐
 │  Cloudflare                             │
-│  *-dev.tribalorigin.com     →  Dev IP   │
-│  *-staging.tribalorigin.com →  Staging IP│
+│  *.dev.tribalorigin.com     →  Dev IP   │
+│  *.staging.tribalorigin.com →  Staging IP│
 └─────────────────────────────────────────┘
                    │
     ┌──────────────┴──────────────┐
@@ -213,9 +213,9 @@ Any application can deploy to an environment by:
 
 1. Joining the environment's shared Docker network (`dev`, `staging`, `prod`)
 2. Adding Traefik labels to its `docker-compose.<env>.yml`
-3. Using the hostname pattern `appname-<env>.tribalorigin.com`
+3. Using the hostname pattern `appname.<env>.tribalorigin.com`
 
-> The Cloudflare wildcard record `*-<env>` already points all matching subdomains to the environment's server IP.
+> The Cloudflare wildcard record `*.<env>` already points all matching subdomains to the environment's server IP.
 
 ### Example: Deploying to Dev
 
@@ -226,7 +226,7 @@ services:
     image: ghcr.io/user/app:dev
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.myapp.rule=Host(`myapp-dev.tribalorigin.com`)"
+      - "traefik.http.routers.myapp.rule=Host(`myapp.dev.tribalorigin.com`)"
       - "traefik.http.routers.myapp.entrypoints=websecure"
       - "traefik.http.routers.myapp.tls.certresolver=letsencrypt"
       - "traefik.http.services.myapp.loadbalancer.server.port=80"
@@ -248,7 +248,7 @@ services:
     image: ghcr.io/user/app:staging
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.myapp.rule=Host(`myapp-staging.tribalorigin.com`)"
+      - "traefik.http.routers.myapp.rule=Host(`myapp.staging.tribalorigin.com`)"
       - "traefik.http.routers.myapp.entrypoints=websecure"
       - "traefik.http.routers.myapp.tls.certresolver=letsencrypt"
       - "traefik.http.services.myapp.loadbalancer.server.port=80"
