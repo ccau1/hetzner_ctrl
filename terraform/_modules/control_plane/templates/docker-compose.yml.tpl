@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  traefik:
+    image: traefik:v3.2
+    container_name: traefik
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./letsencrypt:/letsencrypt
+    networks:
+      - ${environment}
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=false"
+
+networks:
+  ${environment}:
+    driver: bridge

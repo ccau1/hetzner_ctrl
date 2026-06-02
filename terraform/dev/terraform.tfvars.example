@@ -1,0 +1,13 @@
+# Hetzner Cloud API token for the dev project
+hcloud_token = "YOUR_HETZNER_DEV_API_TOKEN"
+
+# Optional overrides
+# ssh_public_key_path = "~/.ssh/id_ed25519.pub"
+# server_type         = "cx23"
+# location            = "nbg1"
+# enable_backups      = false
+
+# ── Cloudflare DNS (optional) ─────────────────────────────────
+# cloudflare_api_token = "YOUR_CLOUDFLARE_API_TOKEN"
+# cloudflare_zone_id   = "YOUR_CLOUDFLARE_ZONE_ID"
+# cloudflare_proxied   = true
