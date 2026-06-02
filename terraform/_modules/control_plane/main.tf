@@ -52,6 +52,7 @@ resource "hcloud_server" "main" {
       - fail2ban
     runcmd:
       - curl -fsSL https://get.docker.com | sh
+      - apt-get install -y --allow-downgrades docker-ce=5:26.1.4-1~ubuntu.24.04~noble docker-ce-cli=5:26.1.4-1~ubuntu.24.04~noble
       - usermod -aG docker root
       - mkdir -p /opt/traefik /opt/apps
       - docker network create ${var.environment} || true
