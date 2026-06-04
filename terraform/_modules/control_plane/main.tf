@@ -72,6 +72,18 @@ resource "cloudflare_record" "wildcard" {
   proxied = var.cloudflare_proxied
 }
 
+# Cloudflare DNS bare record for environment root (e.g. dev.tribalorigin.com)
+resource "cloudflare_record" "environment_root" {
+  count = var.cloudflare_zone_id != "" ? 1 : 0
+
+  zone_id = var.cloudflare_zone_id
+  name    = var.environment
+  type    = "A"
+  content = hcloud_server.main.ipv4_address
+  ttl     = 1
+  proxied = var.cloudflare_proxied
+}
+
 # Generate environment-specific Docker Compose file
 resource "local_file" "docker_compose" {
   content = templatefile("${path.module}/templates/docker-compose.yml.tpl", {
